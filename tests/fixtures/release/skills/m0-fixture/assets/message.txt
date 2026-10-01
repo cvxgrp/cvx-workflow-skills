@@ -1,0 +1,1 @@
+isolated-m0-fixture

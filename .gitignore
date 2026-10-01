@@ -1,0 +1,14 @@
+.venv/
+dist/
+evals/results/
+__pycache__/
+*.py[cod]
+.plan/
+
+# Local agent context during private development; add back before public release.
+/AGENTS.md
+/CLAUDE.md
+/manual/
+
+# Keep the source registry local until cvx-solver is ready.
+/registry/

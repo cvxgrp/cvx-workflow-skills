@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "package": {
+    "name": "cvx-opt-m0-fixture",
+    "version": "0.0.0",
+    "description": "Disposable packaging test; not a convex optimization skill.",
+    "license": "Apache-2.0"
+  },
+  "root_files": [],
+  "skills": {
+    "m0-fixture": {
+      "files": [
+        {"source": "skills/m0-fixture/SKILL.md", "target": "SKILL.md"},
+        {"source": "skills/m0-fixture/scripts/check_resources.py", "target": "scripts/check_resources.py"},
+        {"source": "skills/m0-fixture/assets/message.txt", "target": "assets/message.txt"},
+        {"source": "shared/checklist.md", "target": "references/shared-checklist.md"}
+      ]
+    }
+  }
+}
