@@ -5,9 +5,7 @@ description = "Portable Agent Skills for convex optimization"
 license = "Apache-2.0"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = [
-    "cvxpy>=1.9.3",
-]
+dependencies = []
 
 [dependency-groups]
 dev = [

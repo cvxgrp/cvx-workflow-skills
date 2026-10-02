@@ -3,6 +3,11 @@
 
 from __future__ import annotations
 
+try:
+    from .paths import ARTIFACTS, artifact_output
+except ImportError:
+    from paths import ARTIFACTS, artifact_output
+
 import argparse
 import hashlib
 import json
@@ -301,8 +306,9 @@ def build(root: Path, config_path: Path, output: Path, names: list[str] | None =
     output = output.resolve()
     if root == output or root.is_relative_to(output):
         raise ReleaseError("Output must not be the source root or one of its ancestors")
-    if output.is_relative_to(root) and output.relative_to(root).parts[0] != "dist":
-        raise ReleaseError("In-repository output must be under dist/")
+    if output.is_relative_to(root) and output.relative_to(root).parts[0] != "artifacts":
+        raise ReleaseError("In-repository output must be under artifacts/")
+    output = artifact_output(output)
     config_path = config_path.resolve()
     if config_path.is_relative_to(output):
         raise ReleaseError("Release configuration must not live inside the output")
@@ -359,11 +365,11 @@ def build(root: Path, config_path: Path, output: Path, names: list[str] | None =
         for name in selected:
             selection = _object(skills[name], {"files"}, {"registry"}, f"skill {name}")
             prefix = f"skills/{name}/"
-            # Selected files may come from skills/, shared/, or registry/. No globbing.
+            # Sources are skill/shared/registry resources or root LICENSE. No globbing.
             for entry in _list(selection["files"], f"{name}.files"):
                 source = str(relative_path(entry.get("source") if isinstance(entry, dict) else None))
                 allowed = (f"skills/{name}/", "shared/", "registry/")
-                if not source.startswith(allowed):
+                if source != "LICENSE" and not source.startswith(allowed):
                     raise ReleaseError(f"Source outside skill/shared/registry roots: {source}")
                 if source_file(root, source).is_relative_to(output):
                     raise ReleaseError(f"Source overlaps output: {source}")
@@ -400,17 +406,17 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--config", type=Path, default=Path("release.json"), help="relative to --root")
-    parser.add_argument("--output", type=Path, help="default: ROOT/dist/release; otherwise relative to cwd")
+    parser.add_argument("--output", type=Path, help="default: artifacts/release; otherwise relative to cwd")
     parser.add_argument("--skills", nargs="+", help="subset of registered skills; default: all")
     args = parser.parse_args()
     root = args.root.resolve()
     config = args.config if args.config.is_absolute() else root / args.config
     try:
-        names = build(root, config, args.output or root / "dist/release", args.skills)
+        names = build(root, config, args.output or ARTIFACTS / "release", args.skills)
     except (ReleaseError, OSError) as exc:
         print(f"release error: {exc}", file=sys.stderr)
         return 1
-    print(f"Assembled {', '.join(names)} into {args.output or root / 'dist/release'}")
+    print(f"Assembled {', '.join(names)} into {args.output or root / 'artifacts/release'}")
     return 0
 
 
