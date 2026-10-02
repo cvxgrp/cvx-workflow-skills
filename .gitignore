@@ -5,6 +5,22 @@ __pycache__/
 *.py[cod]
 .plan/
 
+# Internal roadmap and historical evaluation reports.
+/PLAN.md
+/evals/M1_REPORT.md
+/evals/LUNA_*.md
+
+# Reserved qualification material and its local-only preflight checks.
+# Exposed historical held_out cases remain eligible as public regressions.
+/evals/fresh/
+/evals/suites/cvx-model-fresh-v1.json
+/evals/sources/FRESH.md
+/tests/test_fresh_cases.py
+
+# Legacy references outside the focused cvx-model release.
+/skills/cvx-model/references/diagnosis.md
+/skills/cvx-model/references/duals.md
+
 # Local agent context during private development; add back before public release.
 /AGENTS.md
 /CLAUDE.md

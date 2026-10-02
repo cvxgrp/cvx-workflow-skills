@@ -7,7 +7,83 @@
     "license": "Apache-2.0"
   },
   "root_files": [
-    {"source": "LICENSE", "target": "LICENSE"}
+    {
+      "source": "LICENSE",
+      "target": "LICENSE"
+    }
   ],
-  "skills": {}
+  "skills": {
+    "cvx-model": {
+      "files": [
+        {
+          "source": "LICENSE",
+          "target": "LICENSE"
+        },
+        {
+          "source": "skills/cvx-model/SKILL.md",
+          "target": "SKILL.md"
+        },
+        {
+          "source": "skills/cvx-model/assets/ball_projection.json",
+          "target": "assets/ball_projection.json"
+        },
+        {
+          "source": "skills/cvx-model/assets/ball_projection.py",
+          "target": "assets/ball_projection.py"
+        },
+        {
+          "source": "skills/cvx-model/languages/cvxpy.md",
+          "target": "languages/cvxpy.md"
+        },
+        {
+          "source": "skills/cvx-model/references/atoms.md",
+          "target": "references/atoms.md"
+        },
+        {
+          "source": "skills/cvx-model/references/dcp.md",
+          "target": "references/dcp.md"
+        },
+        {
+          "source": "skills/cvx-model/references/formulation.md",
+          "target": "references/formulation.md"
+        },
+        {
+          "source": "skills/cvx-model/references/parameters.md",
+          "target": "references/parameters.md"
+        },
+        {
+          "source": "skills/cvx-model/references/recipes.md",
+          "target": "references/recipes.md"
+        },
+        {
+          "source": "skills/cvx-model/references/verification.md",
+          "target": "references/verification.md"
+        },
+        {
+          "source": "skills/cvx-model/scripts/verify_model.py",
+          "target": "scripts/verify_model.py"
+        },
+        {
+          "source": "skills/cvx-model/scripts/check_model.py",
+          "target": "scripts/check_model.py"
+        },
+        {
+          "source": "skills/cvx-model/scripts/exact_atoms.py",
+          "target": "scripts/exact_atoms.py"
+        }
+      ]
+    },
+    "cvx-explain": {
+      "files": [
+        {
+          "source": "LICENSE",
+          "target": "LICENSE"
+        },
+        {
+          "source": "skills/cvx-explain/SKILL.md",
+          "target": "SKILL.md"
+        }
+      ]
+    }
+  }
 }
