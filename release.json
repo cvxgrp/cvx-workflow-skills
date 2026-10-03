@@ -84,6 +84,106 @@
           "target": "SKILL.md"
         }
       ]
+    },
+    "cvx-canon": {
+      "files": [
+        {
+          "source": "LICENSE",
+          "target": "LICENSE"
+        },
+        {
+          "source": "skills/cvx-canon/SKILL.md",
+          "target": "SKILL.md"
+        },
+        {
+          "source": "skills/cvx-canon/assets/binary_sdp.py",
+          "target": "assets/binary_sdp.py"
+        },
+        {
+          "source": "skills/cvx-canon/assets/casadi_nlp.py",
+          "target": "assets/casadi_nlp.py"
+        },
+        {
+          "source": "skills/cvx-canon/assets/ccp_outside_ball.py",
+          "target": "assets/ccp_outside_ball.py"
+        },
+        {
+          "source": "skills/cvx-canon/assets/highs_milp.py",
+          "target": "assets/highs_milp.py"
+        },
+        {
+          "source": "skills/cvx-canon/assets/ipopt_nlp.py",
+          "target": "assets/ipopt_nlp.py"
+        },
+        {
+          "source": "skills/cvx-canon/assets/moreau_layers.py",
+          "target": "assets/moreau_layers.py"
+        },
+        {
+          "source": "skills/cvx-canon/assets/native_socp.py",
+          "target": "assets/native_socp.py"
+        },
+        {
+          "source": "skills/cvx-canon/assets/pyomo_nlp.py",
+          "target": "assets/pyomo_nlp.py"
+        },
+        {
+          "source": "skills/cvx-canon/references/ccp.md",
+          "target": "references/ccp.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/conic-patterns.md",
+          "target": "references/conic-patterns.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/deployment.md",
+          "target": "references/deployment.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/formulation.md",
+          "target": "references/formulation.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/highs.md",
+          "target": "references/highs.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/ipopt-frameworks.md",
+          "target": "references/ipopt-frameworks.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/ipopt.md",
+          "target": "references/ipopt.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/moreau-frameworks.md",
+          "target": "references/moreau-frameworks.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/moreau.md",
+          "target": "references/moreau.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/nonlinear-formulations.md",
+          "target": "references/nonlinear-formulations.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/relaxations.md",
+          "target": "references/relaxations.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/scs.md",
+          "target": "references/scs.md"
+        },
+        {
+          "source": "skills/cvx-canon/references/verification.md",
+          "target": "references/verification.md"
+        },
+        {
+          "source": "skills/cvx-canon/scripts/cone_layout.py",
+          "target": "scripts/cone_layout.py"
+        }
+      ]
     }
   }
 }
