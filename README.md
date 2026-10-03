@@ -1,75 +1,86 @@
 # cvx-workflow-skills
 
-Portable Agent Skills for convex optimization, targeting Claude Code, Codex,
-OpenCode, and pi. Apache-2.0; currently private development.
+Portable [Agent Skills](https://agentskills.io/) for building optimization models,
+describing them, and implementing them through existing solvers. Use them with
+Claude Code, Codex, OpenCode, or pi. Each assembled skill includes its own
+instructions, references, examples, helpers, and license where applicable.
 
-| Skill | Scope |
+## Skills
+
+| Skill | What it does |
 |---|---|
-| [cvx-model](skills/cvx-model/SKILL.md) | Natural-language requirements → efficient CVXPY code for real continuous convex LP/QP/SOCP models |
-| [cvx-explain](skills/cvx-explain/SKILL.md) | Supplied CVXPY code → Markdown/LaTeX describing variables, parameters, fixed data, objective, and constraints |
-| [cvx-canon](skills/cvx-canon/SKILL.md) | Solver-native Moreau/SCS/HiGHS/IPOPT code, updates, and primal recovery; focused CCP and convex relaxations |
-| cvx-solver | Deferred until the other skills are satisfactory |
+| [cvx-model](skills/cvx-model/SKILL.md) | Turns natural-language requirements into reusable, efficient CVXPY code for real continuous convex LP, QP, and SOCP problems. |
+| [cvx-explain](skills/cvx-explain/SKILL.md) | Reads CVXPY code and produces a Markdown/LaTeX description of its variables, parameters, fixed data, objective, and constraints. |
+| [cvx-canon](skills/cvx-canon/SKILL.md) | Generates Moreau, SCS, HiGHS, or IPOPT implementations, including assembly, parameter updates, and original-variable recovery. Supports focused convex relaxations and convex-concave procedures. |
 
-Each distributed skill is self-contained. `cvx-model` prioritizes reusable code
-and includes optional construction and original-expression checks. Standalone
-proofs, dual analysis, and performance consultations are outside its scope.
-`cvx-explain` describes supplied code without changing the model or inventing
-application meanings.
+`cvx-model` keeps its modeling scope focused for use with smaller models.
+`cvx-canon` is intended for more capable models: it accounts for software
+framework, hardware, precision, batching, and differentiation requirements.
+Moreau IPM is its default convex conic backend, including PyTorch/JAX paths;
+IPOPT supports CasADi, Pyomo, and native callbacks for local nonlinear optimization.
 
-`cvx-canon` targets more capable models and defaults to Moreau IPM for convex
-conic problems, including CPU/CUDA and PyTorch/JAX deployment requirements.
-It includes SCS, HiGHS MILP, and IPOPT through CasADi, Pyomo, or native callbacks,
-with explicit distinctions between exact formulations, relaxations, and local
-solution guarantees. Native applications do not depend on CVXPY at runtime.
-Backend references and worked examples are bundled in the skill; solver packages
-are application dependencies, not requirements for the repository's format check.
+## Build the distribution
 
-## Develop and test
-
-The small [validation package](tests/README.md) checks skill-file format.
-Python 3.14 and [uv](https://docs.astral.sh/uv/) are required:
+The repository's build tools require Python 3.14 and
+[uv](https://docs.astral.sh/uv/getting-started/installation/). From a clone:
 
 ```bash
+git clone https://github.com/cvxgrp/cvx-workflow-skills.git
+cd cvx-workflow-skills
 uv sync --locked
+uv run --no-sync python -B -m tests.build_release
+uv run --no-sync python -B -m tests.validate_release artifacts/release
+```
+
+The assembled distribution is in `artifacts/release/`. It contains standalone
+skill folders, a Claude Code plugin manifest, and a pi package manifest.
+`release.json` selects the shipped files; generated artifacts are ignored by Git.
+
+## Install and use
+
+Install from the assembled distribution, preserving each skill's complete folder
+and bundled license. These options load skills for a project or session:
+
+| Harness | Setup | Documentation |
+|---|---|---|
+| Claude Code | Run `claude --plugin-dir /absolute/path/to/artifacts/release`, or copy selected folders from `artifacts/release/skills/` into your project's `.claude/skills/`. | [Plugins](https://code.claude.com/docs/en/plugins), [skills](https://code.claude.com/docs/en/skills) |
+| Codex | Copy selected folders from `artifacts/release/skills/` into your project's `.agents/skills/`. | [Skills](https://learn.chatgpt.com/docs/build-skills) |
+| OpenCode | Copy selected folders into your project's `.agents/skills/` or `.opencode/skills/`. | [Skills](https://opencode.ai/docs/skills/) |
+| pi | Run `pi -e /absolute/path/to/artifacts/release`. | [Packages](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/packages.md) |
+
+For example, ask your agent:
+
+- **cvx-model:** “Write a reusable CVXPY model minimizing squared distance from
+  a supplied vector, subject to a Euclidean norm bound. Make the vector and radius
+  parameters.”
+- **cvx-explain:** “Describe this CVXPY model in Markdown, distinguishing decision
+  variables, parameters, and fixed data.”
+- **cvx-canon:** “Implement this optimization problem using Moreau in PyTorch,
+  on CPU with float64 data, batching, and gradients through the solution.”
+
+The build does not install modeling or solver packages. Running generated code
+requires the packages used by that application, such as CVXPY, a selected solver,
+or a framework integration. Each skill documents relevant requirements.
+
+## Development and contributions
+
+Run the lightweight skill-format check with:
+
+```bash
 uv run --no-sync python -B -m tests
 ```
 
-The second command checks required metadata, skill/folder name agreement, and
-instruction bodies. It does not execute skill code or call models. Release
-assembly is a separate optional command documented in `tests/README.md`;
-`release.json` selects the shipping resources. Generated output belongs under
-ignored `artifacts/`.
+It checks metadata, skill/folder names, and instruction bodies. Release validation
+also checks bundled resources and manifests. Numerical and live model evaluations
+are separate activities; these checks do not establish solution correctness or
+performance. The skills are under active development, and generated models should
+be checked against their original requirements.
 
-## Use an assembled skill
+Report bugs and suggestions through
+[GitHub issues](https://github.com/cvxgrp/cvx-workflow-skills/issues).
+Contributions use forks and pull requests; see [CONTRIBUTING.md](CONTRIBUTING.md)
+for setup, checks, and resources for first-time contributors.
 
-| Harness | Project/session-local mechanism |
-|---|---|
-| Claude Code | `claude --plugin-dir /absolute/path/to/artifacts/release` |
-| Codex | Copy an assembled skill into project `.agents/skills/<name>/` |
-| OpenCode | Copy into project `.agents/skills/<name>/` or `.opencode/skills/<name>/` |
-| pi | `pi -e /absolute/path/to/artifacts/release` |
+## License
 
-Copy from `artifacts/release/skills/`, including each skill's bundled license.
-Ask cvx-model to build a model from your requirements; supply CVXPY code to
-cvx-explain and ask for its mathematical description.
-Ask cvx-canon for a native implementation from requirements, a formulation, or
-CVXPY code, specifying a backend, software framework, hardware, and batching or
-differentiation requirement when relevant.
-
-## Evidence
-
-Previous local evaluations covered helpers, recipes, reference models, and
-grading. A gpt-6-luna application batch accepted 12/12 first
-attempts across 36 numerical instances; this small batch had no baseline or
-repeats and does not establish a general success rate. cvx-explain has offline
-checks only. Native loading was observed for Claude Code, Codex, and pi;
-OpenCode remains untested. cvx-canon is experimental: local checks cover Moreau
-CPU/SCS conic assembly, recovery, reuse, and CCP; HiGHS MILP; IPOPT derivatives;
-Moreau CPU PyTorch/JAX batch gradients; and CasADi/IPOPT native solves. Pyomo
-construction, parameter updates, and NL writing are checked; its native IPOPT
-executable is unavailable locally. A previous cvx-canon version passed 10/10 fresh
-gpt-6.1-sol rubric cases (99/100); the framework additions have local checks only.
-GPU paths and specialized SCS builds remain untested. These small checks and
-batches are development evidence, not broad qualification.
-The historical evaluation suite is retained locally;
-the shared checker validates format only.
+[Apache-2.0](LICENSE).
