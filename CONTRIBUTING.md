@@ -78,7 +78,11 @@ contributions. See [tests/README.md](tests/README.md) for tooling details.
   attribution and license notices. Contributions are under the repository's
   [Apache-2.0 license](LICENSE).
 
-CI runs the format check, release assembly, and release validation on pushes and
-pull requests. Run the relevant checks locally and include their results in your
+CI runs the format check, release assembly, and release validation on pushes to
+`main` and pull requests. Run the relevant checks locally and include their results in your
 pull request; numerical or model-evaluation claims should state the actual coverage
 and dependencies used.
+
+Maintainers follow the [versioning and release procedure](tests/README.md#versioning-and-releases).
+PR merges run checks; releases are deliberately selected by a version tag and
+published after reviewing the resulting draft.

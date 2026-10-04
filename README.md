@@ -32,6 +32,10 @@ guarantee; backend references identify tested API versions and relevant limits.
 
 ## Build the distribution
 
+Download assembled bundles from [GitHub Releases](https://github.com/cvxgrp/cvx-workflow-skills/releases)
+when available: the full collection for Claude/pi, or a complete individual skill
+folder for project installation. Building from source is optional for users.
+
 The repository's build tools require Python 3.14 and
 [uv](https://docs.astral.sh/uv/getting-started/installation/). From a clone:
 

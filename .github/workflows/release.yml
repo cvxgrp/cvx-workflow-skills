@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  draft-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out tagged commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require a commit on main
+        run: git merge-base --is-ancestor HEAD origin/main
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.11.17"
+          python-version: "3.14"
+          enable-cache: false
+      - name: Install locked development dependencies
+        run: uv sync --locked
+      - name: Check skill format
+        run: uv run --no-sync python -B -m tests
+      - name: Assemble, validate, and package
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: uv run --no-sync python -B -m tests.package_release --tag "$RELEASE_TAG" --output artifacts/packages
+      - name: Create draft release with bundles
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          release_commit=$(git rev-parse HEAD)
+          gh release create "$RELEASE_TAG" artifacts/packages/* \
+            --draft --verify-tag --generate-notes --title "$RELEASE_TAG" \
+            --notes "Built from commit ${release_commit}. Download a complete bundle for Claude/pi, or an individual skill bundle for project installation. See [installation instructions and support status](https://github.com/${GH_REPO}/blob/${RELEASE_TAG}/README.md)."

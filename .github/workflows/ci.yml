@@ -2,6 +2,8 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
   pull_request:
   workflow_dispatch:
 
@@ -29,6 +31,8 @@ jobs:
           enable-cache: false
       - name: Install locked development dependencies
         run: uv sync --locked
+      - name: Check package version consistency
+        run: uv run --no-sync python -B -m tests.package_release --check-version
       - name: Check skill format
         run: uv run --no-sync python -B -m tests
       - name: Assemble distribution
