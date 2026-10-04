@@ -19,6 +19,17 @@ framework, hardware, precision, batching, and differentiation requirements.
 Moreau IPM is its default convex conic backend, including PyTorch/JAX paths;
 IPOPT supports CasADi, Pyomo, and native callbacks for local nonlinear optimization.
 
+## Support status
+
+The skills are under active development. `cvx-model` has small-model application
+evaluations and numerical checks; `cvx-explain` has offline description checks.
+`cvx-canon` is experimental: CPU checks cover conic, MILP, derivative, CCP,
+PyTorch/JAX batch-gradient, and CasADi/IPOPT examples. Its latest framework
+additions have local checks; the model evaluation covered an earlier version.
+GPU execution, native Pyomo/IPOPT solves, and OpenCode loading remain untested.
+These checks cover specific examples, not a general success-rate or performance
+guarantee; backend references identify tested API versions and relevant limits.
+
 ## Build the distribution
 
 The repository's build tools require Python 3.14 and
@@ -37,6 +48,10 @@ skill folders, a Claude Code plugin manifest, and a pi package manifest.
 `release.json` selects the shipped files; generated artifacts are ignored by Git.
 
 ## Install and use
+
+A skill is a folder of instructions and supporting files, loaded by your agent;
+installing it does not require a Python virtual environment. Your application
+may use a virtual environment for CVXPY, solver packages, or optional helpers.
 
 Install from the assembled distribution, preserving each skill's complete folder
 and bundled license. These options load skills for a project or session:

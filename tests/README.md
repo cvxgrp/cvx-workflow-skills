@@ -21,3 +21,7 @@ Assembly follows `release.json`. Generated releases belong under ignored
 `artifacts/`. The previous numerical tests, graders, fixtures, live adapters,
 and disabled CI template are retained locally in `artifacts/history/development-suite/`.
 They are not part of the shared validation package.
+
+CI uses the same offline format, assembly, and release-validation commands in
+[.github/workflows/ci.yml](../.github/workflows/ci.yml). It makes no live model calls
+and does not run numerical solver checks or publish releases.
