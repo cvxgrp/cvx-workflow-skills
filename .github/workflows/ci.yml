@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Set up uv and Python
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.11.17"
+          python-version: "3.14"
+          enable-cache: false
+      - name: Install locked development dependencies
+        run: uv sync --locked
+      - name: Check skill format
+        run: uv run --no-sync python -B -m tests
+      - name: Assemble distribution
+        run: uv run --no-sync python -B -m tests.build_release
+      - name: Validate distribution
+        run: uv run --no-sync python -B -m tests.validate_release artifacts/release
