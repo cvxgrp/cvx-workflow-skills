@@ -8,7 +8,9 @@ license: Apache-2.0
 
 Describe the supplied model as written. Default to Markdown with mathematical
 notation; use standalone LaTeX when requested. Keep the description proportional
-to the code. This task does not require solving or changing the model.
+to the code. This task does not require solving or changing the model. Read
+[notation](references/notation.md) before writing math: standard-form layout,
+preamble-free macros, and marimo notebook specifics.
 
 1. Identify each decision variable's name, shape, and domain, including implicit
    attributes such as nonnegativity, bounds, symmetry, or integrality. Distinguish
@@ -34,5 +36,6 @@ For data-dependent construction branches, state the applicable conditions; ask
 for missing inputs when they determine which model is built.
 Do not claim convexity, DCP acceptance, feasibility, or optimality without the
 corresponding evidence. Read the source before considering execution; describing
-a model usually needs no execution. Return prose/math, without a JSON wrapper
-unless the user explicitly requests one.
+a model usually needs no execution. The optional [math checker](scripts/check_latex.py)
+scans the written description, not the model. Return prose/math, without a JSON
+wrapper unless the user explicitly requests one.

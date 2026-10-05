@@ -16,7 +16,7 @@ Identify decision variables and shapes, fixed data, changing parameters, units,
 domains, objective direction and scaling, and every constraint. Preserve rows,
 columns, inequality directions, quantifiers, and constants. Read
 [formulation](references/formulation.md) when the description is ambiguous or
-needs an exact reformulation.
+needs an exact reformulation, including a linear-fractional objective.
 
 Ask a focused question if a missing choice changes the model, such as budget
 equality versus cap or borrowing rules. Do not invent data or quietly choose a

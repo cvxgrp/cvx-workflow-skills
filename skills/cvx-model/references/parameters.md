@@ -1,7 +1,10 @@
 # Repeated solves and DPP
 
 Use a single `cp.Problem` with named `cp.Parameter` objects when data changes
-but structure/shapes remain fixed. Set parameter values before solving and
+but structure/shapes remain fixed. A quantity the request sweeps or revisits
+("plot cost versus capacity", "repeat for C = 1", "for each lambda") is data
+to make a Parameter, not a variable; build the problem once, outside the loop,
+and assign values inside it. Set parameter values before solving and
 validate their domains on updates. Changing dimensions generally requires
 rebuilding. Negative regularization is not repaired by silently clipping it.
 
