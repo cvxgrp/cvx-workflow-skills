@@ -82,6 +82,14 @@
         {
           "source": "skills/cvx-explain/SKILL.md",
           "target": "SKILL.md"
+        },
+        {
+          "source": "skills/cvx-explain/references/notation.md",
+          "target": "references/notation.md"
+        },
+        {
+          "source": "skills/cvx-explain/scripts/check_latex.py",
+          "target": "scripts/check_latex.py"
         }
       ]
     },
