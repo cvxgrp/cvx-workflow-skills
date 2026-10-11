@@ -70,6 +70,18 @@
         {
           "source": "skills/cvx-model/scripts/exact_atoms.py",
           "target": "scripts/exact_atoms.py"
+        },
+        {
+          "source": "skills/cvx-model/references/multipliers.md",
+          "target": "references/multipliers.md"
+        },
+        {
+          "source": "skills/cvx-model/references/quadratics.md",
+          "target": "references/quadratics.md"
+        },
+        {
+          "source": "skills/cvx-model/references/solver-routing.md",
+          "target": "references/solver-routing.md"
         }
       ]
     },
@@ -190,6 +202,38 @@
         {
           "source": "skills/cvx-canon/scripts/cone_layout.py",
           "target": "scripts/cone_layout.py"
+        }
+      ]
+    },
+    "cvx-debug": {
+      "files": [
+        {
+          "source": "LICENSE",
+          "target": "LICENSE"
+        },
+        {
+          "source": "skills/cvx-debug/SKILL.md",
+          "target": "SKILL.md"
+        },
+        {
+          "source": "skills/cvx-debug/references/implementation.md",
+          "target": "references/implementation.md"
+        },
+        {
+          "source": "skills/cvx-debug/references/modeling.md",
+          "target": "references/modeling.md"
+        },
+        {
+          "source": "skills/cvx-debug/references/performance.md",
+          "target": "references/performance.md"
+        },
+        {
+          "source": "skills/cvx-debug/references/quadratics.md",
+          "target": "references/quadratics.md"
+        },
+        {
+          "source": "skills/cvx-debug/references/solver-routing.md",
+          "target": "references/solver-routing.md"
         }
       ]
     }

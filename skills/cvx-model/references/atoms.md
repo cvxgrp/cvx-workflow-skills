@@ -12,7 +12,7 @@ monotone transformation when other terms or reported units would change.
 | Maximum absolute residual | `cp.norm(z, 'inf')` | Convex; both residual signs matter |
 | Positive part | `cp.pos(z)` | Convex/nondecreasing; useful for convex hinge losses |
 | Maximum / minimum | `cp.max(z)` / `cp.min(z)` | Maximum of convex expressions is convex; minimum of concave expressions is concave |
-| Quadratic form | `cp.quad_form(x, Q)` | Convex for PSD Q; do not conceal indefinite data |
+| Quadratic form | Prefer `cp.sum_squares(R @ x)` for Q=R^T R | Convex for PSD Q; use a fixed-vector trace operator when Q varies; read [quadratic representations](quadratics.md) |
 | Quadratic perspective | `cp.quad_over_lin(z, t)` | Jointly convex for affine z and positive t; sums numerator squares over all entries |
 | Positive reciprocal | `cp.inv_pos(t)` | Convex/decreasing on positive domain; raw 1/t is not the right DCP expression |
 | Geometric mean | `cp.geo_mean(x)`; weighted: `exact_geo_mean(x, weights)` below | Concave, nonnegative x; weighted exponents must be preserved exactly |

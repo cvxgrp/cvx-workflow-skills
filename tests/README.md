@@ -50,7 +50,8 @@ need a version bump; prepare one when you choose to release.
 3. The [release workflow](../.github/workflows/release.yml) runs only on `v*`
    tag pushes. It requires the commit to be in `main` history, checks skill
    format and version consistency, assembles and validates the distribution,
-   and creates four ZIP bundles plus `SHA256SUMS` in a **draft** GitHub Release.
+   and creates the collection and one ZIP per shipped skill, plus `SHA256SUMS`,
+   in a **draft** GitHub Release.
 4. Review the draft notes, including changes, source commit, and support coverage.
    Download a bundle and check its layout/checksum, then publish the draft.
    The bundles are the downloadable installation artifacts; GitHub's automatic

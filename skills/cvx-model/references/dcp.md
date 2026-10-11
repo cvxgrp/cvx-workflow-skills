@@ -46,9 +46,11 @@ translated correctly.
 ## Quadratic forms
 
 For real symmetric Q, x^T Q x is convex iff Q is PSD on the relevant full-space
-domain. Validate symmetry and PSD assumptions before relying on them. For large
-structured matrices, use a justified factor Q=R^T R and `sum_squares(R @ x)`
-when appropriate. Check that a factorization's orientation reproduces Q.
+domain. Validate symmetry and PSD assumptions before relying on them. Prefer a
+justified factor Q=R^T R and `sum_squares(R @ x)` when x is variable. When Q is
+the variable and x is fixed, the expression is affine in Q. Read
+[quadratic representations](quadratics.md) for both cases, factor orientation,
+and PSD-check failures.
 
 Do not use `psd_wrap` or `assume_PSD=True` to make an indefinite matrix appear
 convex. These bypass analysis; they do not alter eigenvalues. Do not silently

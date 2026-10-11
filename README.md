@@ -1,7 +1,7 @@
 # cvx-workflow-skills
 
 Portable [Agent Skills](https://agentskills.io/) for building optimization models,
-describing them, and implementing them through existing solvers. Use them with
+describing and debugging them, and implementing them through existing solvers. Use them with
 Claude Code, Codex, OpenCode, or pi. Each assembled skill includes its own
 instructions, references, examples, helpers, and license where applicable.
 
@@ -9,11 +9,15 @@ instructions, references, examples, helpers, and license where applicable.
 
 | Skill | What it does |
 |---|---|
-| [cvx-model](skills/cvx-model/SKILL.md) | Turns natural-language requirements into reusable, efficient CVXPY code for real continuous convex LP, QP, and SOCP problems. |
+| [cvx-model](skills/cvx-model/SKILL.md) | Turns natural-language requirements into reusable, efficient CVXPY code for real continuous convex LP, QP, and SOCP problems, with lightweight solver routing and requested dual multipliers. |
 | [cvx-explain](skills/cvx-explain/SKILL.md) | Reads CVXPY code and produces a Markdown/LaTeX description of its variables, parameters, fixed data, objective, and constraints. |
+| [cvx-debug](skills/cvx-debug/SKILL.md) | Diagnoses existing CVXPY models, proposes focused repairs, and checks modeling, implementation, or performance issues using available evidence. |
 | [cvx-canon](skills/cvx-canon/SKILL.md) | Generates Moreau, SCS, HiGHS, or IPOPT implementations, including assembly, parameter updates, and original-variable recovery. Supports focused convex relaxations and convex-concave procedures. |
 
 `cvx-model` keeps its modeling scope focused for use with smaller models.
+`cvx-debug` loads references only for the reported issue; `cvx-explain` describes
+the code as written. Requested dual multipliers are distinct from symbolic dual
+derivation, which remains outside these skills' scope.
 `cvx-canon` is intended for more capable models: it accounts for software
 framework, hardware, precision, batching, and differentiation requirements.
 Moreau IPM is its default convex conic backend, including PyTorch/JAX paths;
@@ -23,6 +27,9 @@ IPOPT supports CasADi, Pyomo, and native callbacks for local nonlinear optimizat
 
 The skills are under active development. `cvx-model` has small-model application
 evaluations and numerical checks; `cvx-explain` has offline description checks.
+The new routing, multiplier, and quadratic-representation guidance has focused
+local numerical checks; `cvx-debug` has not yet had live model or skill-selection
+evaluations. Earlier modeling scores do not qualify these additions.
 `cvx-canon` is experimental: CPU checks cover conic, MILP, derivative, CCP,
 PyTorch/JAX batch-gradient, and CasADi/IPOPT examples. Its latest framework
 additions have local checks; the model evaluation covered an earlier version.
@@ -74,6 +81,8 @@ For example, ask your agent:
   parameters.”
 - **cvx-explain:** “Describe this CVXPY model in Markdown, distinguishing decision
   variables, parameters, and fixed data.”
+- **cvx-debug:** “This CVXPY model fails DCP checks. Diagnose the cause and give
+  an equivalent correction, preserving the intended constraints.”
 - **cvx-canon:** “Implement this optimization problem using Moreau in PyTorch,
   on CPU with float64 data, batching, and gradients through the solution.”
 
