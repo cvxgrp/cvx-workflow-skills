@@ -36,8 +36,14 @@ effect on the actual vectorized/parameterized workload. Measure construction,
 compilation/update, and solve-call/solver time separately; faster compilation
 alone is not a faster end-to-end solve.
 
+Read [quadratic representations](../references/quadratics.md) for quadratic
+terms; use an available factor without forming a Gram matrix, or a fixed-vector
+trace operator when the matrix is the variable.
+
 Name original variables so a human can recover/interpret them. Store important
-explicit constraints when duals are wanted. Parameter names and sign attributes
+explicit constraints when duals are wanted; read
+[multipliers](../references/multipliers.md) for their interface and interpretation.
+Parameter names and sign attributes
 should express intended updates, not only the current example's values.
 
 ## Bounds and attributes
@@ -70,10 +76,10 @@ Do not claim the attribute form exposes separately named bound multipliers.
 ## Solve and inspect
 
 Check `problem.is_dcp()` before solve and `problem.is_dcp(dpp=True)` when
-repeated-solve caching is part of the requirement. Select an installed solver:
-Clarabel is a useful small conic/QP baseline; OSQP targets QPs; SCS is a conic
-fallback whose achieved accuracy needs particular attention. Default selection
-and cone conversions are version-specific, not a universal recommendation.
+repeated-solve caching is part of the requirement. Read
+[solver routing](../references/solver-routing.md) when selecting a solver.
+Default selection and cone conversions are version-specific, not a universal
+recommendation. Check the actual installed interface and problem structure.
 
 Do not access `.value` as an optimum before checking status. Infeasible,
 unbounded, inaccurate, and iteration-limited outcomes require different

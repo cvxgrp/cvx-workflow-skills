@@ -30,6 +30,8 @@ copying a pattern is not evidence that every extension is compliant.
 A parameterized `quad_form(x, Q)` may fail DPP even when Q is declared PSD.
 A factor-based representation can help: compute Q=R^T R outside the DSL, assign
 R to an appropriately shaped Parameter, and use `sum_squares(R @ x)`.
+Read [quadratic representations](quadratics.md) for factor orientation and
+singular PSD data; prefer an existing factor over forming a Gram matrix.
 Factor changes, rank changes, memory cost, and floating-point PSD assumptions
 must be considered. `is_dcp(dpp=True)` is the verdict on the concrete version/path.
 

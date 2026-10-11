@@ -32,6 +32,8 @@ preamble-free macros, and marimo notebook specifics.
 Describe auxiliary/epigraph constraints literally unless an elimination is
 requested and justified. Do not silently replace the code with an intended or
 "corrected" formulation. Flag apparent inconsistencies briefly and separately.
+Requested diagnosis or repair is a `cvx-debug` task; it does not require changing
+this literal-description workflow or having another skill installed.
 For data-dependent construction branches, state the applicable conditions; ask
 for missing inputs when they determine which model is built.
 Do not claim convexity, DCP acceptance, feasibility, or optimality without the

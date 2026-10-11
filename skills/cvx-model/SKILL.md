@@ -1,6 +1,6 @@
 ---
 name: cvx-model
-description: Write reusable, efficient CVXPY code from natural-language descriptions of real continuous convex LP, QP, and SOCP problems. Use when the requested deliverable is a CVXPY implementation. Not for describing existing code, standalone proofs or dual analysis, solver-native code, or custom solver algorithms.
+description: Write reusable, efficient CVXPY code from natural-language descriptions of real continuous convex LP, QP, and SOCP problems, with lightweight solver selection and requested dual multipliers. Not for explaining or debugging existing code, symbolic dual derivation, solver-native code, or custom algorithms.
 license: Apache-2.0
 ---
 
@@ -34,8 +34,11 @@ construction from solving, unless the user explicitly wants a solve workflow.
   Do not reject loose bounds or screen feasibility unless requested. Preserve
   infeasible instances as models, and preserve sparse inputs.
 - Vectorize expressions and reductions; use deliberate axes and reshape order.
-- Use appropriate atoms: `sum_squares`, `norm`, `multiply`, `quad_form`, and
+- Use appropriate atoms: `sum_squares`, `norm`, `multiply`, and
   `quad_over_lin` instead of opaque variable products or divisions.
+- For quadratic expressions, read [quadratic representations](references/quadratics.md):
+  prefer residual/factor forms for vector variables and affine trace operators
+  for a matrix variable with fixed vectors. Preserve the original expression.
 - Retain original variables and objective factors. Use supported bound/sign
   attributes when appropriate; preserve explicit constraints when needed.
 - For repeated solves, use named parameters and check DPP; read
@@ -60,6 +63,17 @@ state the obstruction briefly. Do not replace it with a surrogate or turn the
 answer into a solver implementation or a general mathematical analysis.
 
 ## Check and deliver the code
+
+When choosing a solver or supplying a solve workflow, read
+[solver routing](references/solver-routing.md). Identify the objective and
+constraint structure, including polyhedrality when useful; recommend a compatible
+installed solver with a brief reason. Solver choice alone does not promise speed.
+Keep construction-only requests construction-only.
+
+When multipliers are requested, read [dual multipliers](references/multipliers.md).
+Expose named explicit constraints through the requested interface and retrieve
+their dual values only after an appropriate solve/status check. Do not derive
+a symbolic dual problem or claim a certificate from returned multipliers alone.
 
 Audit code against the original objective, each constraint, domains, and shapes.
 Check `problem.is_dcp()`; for promised parameter reuse also check
